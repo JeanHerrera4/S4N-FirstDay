@@ -27,13 +27,12 @@ class TupleSuite  extends FunSuite {
     assert(6==lista.filter(_%2==0).fold(0)((a,e)=>a+e)/lista.filter(_%2==0).size)
   }
 
-  test("Se debe poder acceder al primer elemento de List no vacía"){
+  /*test("Se debe poder acceder al primer elemento de List no vacía"){
     val lista = List(1, 2, 3, 4)
     val result = lista.headOption
     assert(result = Some(1))
+  }*/
+
   }
 
-ase class MyCaseClass
-  }
 
-}

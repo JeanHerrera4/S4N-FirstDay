@@ -33,7 +33,6 @@ class ListSuite extends FunSuite {
     assertDoesNotCompile( "val l = List[String](\"1\", \"2\", 3)")
   }
 
-  // Diferencia entre programación en statment y evaluación de expresiones -> RECUERDA
 
   test("Una lista se debe poder recorrer imperativamente") {
     val lista = List(1, 2, 3, 4)
@@ -130,13 +129,13 @@ class ListSuite extends FunSuite {
   }
 
   test("DropWhile"){
-    val l = List(1, 3, 3, 4, 5)
+    val l = List(1, 2, 3, 4, 5)
     var r = l.dropWhile(x => x%2!=0)
     println(r)
     assert(r==List(2,3,4,5))
     val r2 = l.dropWhile(x => x%2==0)
     println(r2)
-    assert(r2 == List(2,3, 4, 5))
+    assert(r2 == List(1,2,3, 4, 5))
   }
 
 
@@ -239,11 +238,16 @@ class ListSuite extends FunSuite {
   }
 
   test("Numero de caracteres sobre lista de String"){
+
+    def a(s:String):Int = s.length
+
     val lista = List("ac", "abc", "abcd")
-    val lista2 = lista.map(dato)
+    val lista2 = lista.map(dato => a(dato))
+
+    assert(lista2 == List(2,3,4))
   }
 
-  test("Verificacion de map sobre una List"){
+  /*test("Verificacion de map sobre una List"){
     case class MyCaseClass(nro:Int)
     val l = List(1, 2, 3)
 
@@ -252,6 +256,6 @@ class ListSuite extends FunSuite {
     assert(r == List(MyCaseClass(1),MyCaseClass(2),MyCaseClass(3)))
 
   }
-
+*/
 
 }
