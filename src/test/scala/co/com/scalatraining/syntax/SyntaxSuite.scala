@@ -182,6 +182,8 @@ class SyntaxSuite extends FunSuite{
   }
 
 
+  //Se debe devolver el mismo tipo de dato
+
   test("Pattern matching"){
     case class Profesor(nombre:String)
     case class Curso(nombre:String, p:Profesor)
@@ -201,6 +203,8 @@ class SyntaxSuite extends FunSuite{
     }
 
   }
+
+  //Con class no se puede obtener el atributo, para eso se usa case class (En este caso para acceder a nombre)
 
   test("verificacion de unapply"){
     class Profesor(nombre:String)

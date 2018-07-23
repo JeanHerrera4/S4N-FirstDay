@@ -33,6 +33,7 @@ class ListSuite extends FunSuite {
     assertDoesNotCompile( "val l = List[String](\"1\", \"2\", 3)")
   }
 
+  // Diferencia entre programación en statment y evaluación de expresiones -> RECUERDA
 
   test("Una lista se debe poder recorrer imperativamente") {
     val lista = List(1, 2, 3, 4)
@@ -51,6 +52,26 @@ class ListSuite extends FunSuite {
     val l2 = 4::l1
     assert(l2 == List(4,1,2,3))
   }
+
+  test("Se puede concatenar listas"){
+    val l1 = List(1,2)
+    val l2 = List(3,4)
+    val l3 = l1 ::: l2
+    assert(l3 == List(1,2,3,4))
+  }
+
+  test("Adiccionar un elemento con:+"){
+    val l1 = List(1,2)
+    val l2 = l1:+3
+    assert(l2 == List(1,2,3))
+  }
+
+  test("Adiccionar con append y prepend, 1 y 5"){
+    val l1 = List(2,3,4)
+    val l2 = 1 :: (l1 :+5)
+    assert(l2 == List(1,2,3,4,5))
+  }
+
 
   test("A una lista se le debe poder eliminar elementos con drop") {
     val lista = List(1, 2, 3, 4)
@@ -103,16 +124,36 @@ class ListSuite extends FunSuite {
         numero % 2 == 0
       )
 
-      lista.filter(_%2==0)
+      lista.filter(_%2==0) //Tratar de no usar
 
     }
   }
 
+  test("DropWhile"){
+    val l = List(1, 3, 3, 4, 5)
+    var r = l.dropWhile(x => x%2!=0)
+    println(r)
+    assert(r==List(2,3,4,5))
+    val r2 = l.dropWhile(x => x%2==0)
+    println(r2)
+    assert(r2 == List(2,3, 4, 5))
+  }
+
+
   test("Una lista se debe poder acumular") {
-    val lista = List(1, 2, 3, 4)
-    assertResult(10) {
+    val lista = List(1, 2, 3, 4, 5)
+    assertResult(15) {
       lista.fold(0) { (acumulado, item) =>
         acumulado + item
+      }
+    }
+  }
+
+  test("Una lista se debe poder multiplicar") {
+    val lista = List(1, 2, 3, 4, 5)
+    assertResult(120) {
+      lista.fold(1) { (acumulado, item) =>
+        acumulado * item
       }
     }
   }
@@ -195,6 +236,11 @@ class ListSuite extends FunSuite {
     assert(lista2.head == "1prueba")
     assert(lista != lista2)
     assert(lista2 == lista3)
+  }
+
+  test("Numero de caracteres sobre lista de String"){
+    val lista = List("ac", "abc", "abcd")
+    val lista2 = lista.map(dato)
   }
 
   test("Verificacion de map sobre una List"){
