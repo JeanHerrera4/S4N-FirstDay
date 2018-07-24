@@ -1,4 +1,4 @@
-package co.com.scalatraining.collections
+/*package co.com.scalatraining.collections
 
 class ExerciseCotizacionesSuite {
 
@@ -35,4 +35,4 @@ class ExerciseCotizacionesSuite {
     delete lista que no cumple
   }*/
 
-}
+}*/
