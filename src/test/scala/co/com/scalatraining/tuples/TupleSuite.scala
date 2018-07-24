@@ -22,11 +22,6 @@ class TupleSuite  extends FunSuite {
 
   }
 
-  test("Promedio de números pares"){
-    val lista = List(1, 2, 3, 4, 6, 7, 8, 9, 10)
-    assert(6==lista.filter(_%2==0).fold(0)((a,e)=>a+e)/lista.filter(_%2==0).size)
-  }
-
   /*test("Se debe poder acceder al primer elemento de List no vacía"){
     val lista = List(1, 2, 3, 4)
     val result = lista.headOption

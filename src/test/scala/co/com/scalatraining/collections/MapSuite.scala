@@ -7,8 +7,8 @@ import scala.collection.SortedMap
 class MapSuite extends FunSuite {
 
   test ("Creacion vacia") {
-      val mapa1 = Map()
-      val mapa2 = Map.empty
+      val mapa1 = Map() //Map[Clave, Valor]
+      val mapa2 = Map.empty //Formas de crear un mapa vacío
       assert(mapa1.isEmpty)
       assert(mapa2.isEmpty)
       assert(mapa1 == mapa2)
@@ -19,7 +19,7 @@ class MapSuite extends FunSuite {
     assertResult(6) {
       var sum = 0
       map.foreach((x) =>
-        sum += x._2
+        sum += x._2  //El 2 es por la posción del elemento en la tupla
       )
       sum
     }
@@ -128,6 +128,15 @@ class MapSuite extends FunSuite {
     assertResult(Map("1" -> 1, "2" -> 4, "3" -> 9)) {
       map.mapValues(valor => valor * valor)
     }
+  }
+
+  //String con un texto, retornar en un mapa el número de veces
+  test("Retorna número de veces que aparece una palabra en un texto"){
+
+    val texto = "hola a todos a a a a"
+
+    //texto.split(" ").foldLeft(Map[String, Int]())(op = (m, i) => m + (i -> (m.getOrElse(i, 0)+1)))
+    texto.split(" ").groupBy(f = x => x).mapValues(_.size)
   }
 
 }

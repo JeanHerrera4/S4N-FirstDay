@@ -152,4 +152,36 @@ class SetSuite extends FunSuite {
     assert(r.tail.tail.tail.head == 3)
   }
 
+  /*test("Prueba set en clase, unión, negación, intersección"){
+     val set1 = Set(1,2,3,4,5,6,8)
+     val set2 = Set(6,7,8,9,10, 2, 3)
+
+    //Unión
+     val set3 = set1.union(set2)
+     assert (set3 == Set(1,2,3,4,5,6,7,8,9,10))
+
+    def union(a:Set[Int], b:Set[Int]):Set[Int] = {
+      val setFlow = Set.empty[Int]
+      a.foreach((x) =>
+        b.foreach((y) =>
+          if(a(x)!=b(y))
+            setFlow + a(x)
+        )
+      )
+      setFlow
+    }
+    val set6 = union(set1,set2)
+    assert (set6 == Set(1,2,3,4,5,6,7,8,9,10))
+
+    //Intersección
+    val set4 = set1.intersect(set2)
+    assert (set4 == Set(2,3,6,8))
+
+    //Diferencia
+    val set5 = set1.diff(set2)
+    assert (set5 == Set(1,4,5))
+
+
+  }*/
+
 }

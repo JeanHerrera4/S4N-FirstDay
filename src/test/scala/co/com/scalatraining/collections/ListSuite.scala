@@ -247,6 +247,29 @@ class ListSuite extends FunSuite {
     assert(lista2 == List(2,3,4))
   }
 
+  test("Flatmap, una lista de listas y sacar el promedio de ello"){
+
+    val lista = List(List(1,1),List(2,2), Nil)
+
+    //Así sería con map
+    //val result = lista.filter(!_.isEmpty).map(x => (x.sum/x.size))
+
+    //flatMap siempre retorna una lista (aplanada)
+    val result = lista.filter(!_.isEmpty).flatMap(x => List(x.sum/x.size))
+
+    // 1) List(List(1,1), List(2,2))
+    // 2) List(List(1), List(2))
+    // 3) List(1,2)
+
+    assert(result == List(1,2))
+
+  }
+
+  test("Promedio de números pares"){
+    val lista = List(1, 2, 3, 4, 6, 7, 8, 9, 10)
+    assert(6==lista.filter(_%2==0).fold(0)((a,e)=>a+e)/lista.filter(_%2==0).size)
+  }
+
   /*test("Verificacion de map sobre una List"){
     case class MyCaseClass(nro:Int)
     val l = List(1, 2, 3)
