@@ -63,8 +63,8 @@ class FutureSuite extends FunSuite {
     })
 
 
-    val resultado = Await.result(saludoCompleto, 10 seconds)
-    assert(resultado == "Hola muchachos")
+    val resultado = Await.result(saludo, 10 seconds)
+    assert(resultado == "Hola")
   }
 
   test("Se debe poder encadenar Future con for-comp") {
@@ -119,35 +119,39 @@ class FutureSuite extends FunSuite {
     }
     var error = false
 
-    val r: Unit = divisionCero.onFailure {
+    /*val r: Unit = divisionCero.onFailure {
       case e: Exception => error = true
-    }
+    }*/
 
-
+    val k: Unit = divisionCero.recover{case e: Exception => error = true}
 
     Thread.sleep(1000)
 
+    //assert(error == true)
     assert(error == true)
   }
 
   test("Se debe poder manejar el exito de un Future de forma imperativa") {
 
     val division = Future {
-      5
+      5/0
     }
 
     var r = 0
 
-    val f: Unit = division.onComplete {
+    /*val f: Unit = division.onComplete {
       case Success(res) => r = res
       case Failure(e) => r = 1
-    }
+    }*/
+
+    val k: Future[Int] = division.map((x) => x + 1).recover{case e: Exception => 1}
 
     Thread.sleep(150)
 
-    val res = Await.result(division, 10 seconds)
+    //val res = Await.result(division, 10 seconds)
+    val re = Await.result(k, 10 second)
 
-    assert(r == 5)
+    assert(re == 1)
   }
 
   test("Se debe poder manejar el error de un Future de forma funcional sincronicamente") {
@@ -343,6 +347,60 @@ class FutureSuite extends FunSuite {
     assert(res ==  Range(1,11).sum/Range(1,11).size)
 
   }
+
+  test("Ejercicio Servicio de Clima") {
+
+
+      object clima {
+
+        def obtenerClima(): Future[String] = {
+          implicit val ecParaClima = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(5))
+          val a: Future[String] = Future {
+            Thread.sleep(500)
+            s"El clima está en 20 grado Farenheint ${Thread.currentThread().getName}"
+          }(ecParaClima)
+          a
+        }
+      }
+
+      object guardar {
+
+        implicit val ecParaGuardar = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(1))
+        def guardar(future: Future[String]): Future[String] = {
+          val a: Future[String] = Future {
+            Thread.sleep(500)
+            s"Se guarda el clima ${Thread.currentThread().getName}"
+          }(ecParaGuardar)
+          a
+        }
+      }
+
+    object Cliente{
+      def ejecutar():Future[Boolean] = {
+        clima.obtenerClima().flatMap(x => guardar.guardar(Future("Entre entre")))
+      }
+    }
+
+      Range(1, 20).map {
+        x => x
+          val t = clima.obtenerClima()
+          val r = guardar.guardar(clima.obtenerClima())
+          val q = Await.result(t, 10 seconds)
+          val p = Await.result(r, 10 seconds)
+      }
+    }
+
+    /*val a = clima.obtenerClima()
+    println(Future(a))
+
+    val b = guardar.guardar()
+    println(Future(b))*/
+
+
+
+      /*def guardar(future: Future[String]): Future[String] = {
+
+      }*/
 
 
 }

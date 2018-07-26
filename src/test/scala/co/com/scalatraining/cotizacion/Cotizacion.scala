@@ -1,6 +1,9 @@
 package co.com.scalatraining.cotizacion
 
-class Cotizacion {
+import co.com.scalatraining.cotizacion.test.CotizacionTest
+import org.scalatest.FunSuite
+
+class Cotizacion extends FunSuite{
 
   case class Cotizar(periodo:String, aportante:String, dias: Int, ibc: Int)
   case class Periodo(periodo: String, salario: Int)
@@ -22,5 +25,10 @@ class Cotizacion {
       .map(x => x._1 -> x._2
       .foldLeft(0){(acc, item) => acc + item._2})
     }
+
+  test("Prueba limpiar Historial"){
+
+    //val Cotizacion: Cotizacion = new Cotizar("2018/07", "S4N", 10, 1000000)
+  }
 
 }

@@ -5,7 +5,7 @@ import org.scalatest.FunSuite
 
 class CotizacionTest extends FunSuite {
 
-  test("Limpiar el historial"){
+  /*test("Limpiar el historial"){
     val entrada: List[Cotizar] =  List(
       new Cotizar(),
       new CotizacionTest("2018/07", "S4N", 10, 1000000),
@@ -15,6 +15,6 @@ class CotizacionTest extends FunSuite {
       new CotizacionTest("2018/07", "S4K", 10, 0))
   }
 
-  val v: Cotizar = new Cotizar()
+  val v: Cotizacion = new Cotizacion("2018/07", "S4N", 10, 1000000)*/
 
 }
