@@ -366,7 +366,7 @@ class FutureSuite extends FunSuite {
       object guardar {
 
         implicit val ecParaGuardar = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(1))
-        def guardar(future: Future[String]): Future[String] = {
+        def guardar(s: String): Future[String] = {
           val a: Future[String] = Future {
             Thread.sleep(500)
             s"Se guarda el clima ${Thread.currentThread().getName}"
@@ -375,32 +375,73 @@ class FutureSuite extends FunSuite {
         }
       }
 
-    object Cliente{
+    /*object Cliente{
       def ejecutar():Future[Boolean] = {
-        clima.obtenerClima().flatMap(x => guardar.guardar(Future("Entre entre")))
+        clima.obtenerClima().flatMap(x => guardar.guardar(x))
       }
-    }
+    }*/
 
       Range(1, 20).map {
         x => x
-          val t = clima.obtenerClima()
-          val r = guardar.guardar(clima.obtenerClima())
-          val q = Await.result(t, 10 seconds)
-          val p = Await.result(r, 10 seconds)
+          //val t = clima.obtenerClima()
+          //val r = guardar.guardar(clima.obtenerClima())
+         // val f = Cliente.ejecutar()
+          //val q = Await.result(t, 10 seconds)
+          //val p = Await.result(f, 10 seconds)
       }
     }
 
-    /*val a = clima.obtenerClima()
-    println(Future(a))
+  test("Ejercicio repositorio Git"){
 
-    val b = guardar.guardar()
-    println(Future(b))*/
+    case class Repositorio(dueno: String, nombre:String, lineas: Int, lenguaje: String)
+    case class User(nombre: String, repositorio: String)
+    case class UserRepos(lenguaje: String, repeticiones: Int)
+    case class userComplete()
 
+    val usersRepositories = List(User("Jean","Repo1"), User("Pedro","Repo2"), User("Jean","Repo3"), User("Pedro","Repo4"))
+    val repositories = List(Repositorio("Jean","Repo1", 1000, "Java"), Repositorio("Pedro", "Repo2", 1000, "Scala"),
+                            Repositorio("Pedro", "Repo3", 500, "Python"), Repositorio("Jean", "Repo4", 2000, "Java"))
 
+    object Consulta{
 
-      /*def guardar(future: Future[String]): Future[String] = {
+      def consultaRepositoriosUser(listaDeUsuarios: List[User], name: String): Future[List[String]] =
+      Future{
+         Thread.sleep(200)
+         listaDeUsuarios
+           .filter(x => x.nombre.equalsIgnoreCase(name)).map(x => x.repositorio)
+      }
 
-      }*/
+      def lenguajeRepositorios(listaDeRepositorios: List[Repositorio]): Future[Map[String, Int]] =
+      Future{
+        Thread.sleep(200)
+        listaDeRepositorios
+          .groupBy(x => x.lenguaje).mapValues(x => x.length).map(x => x._1 -> x._2)
+      }
+
+      def userRepositories(listaDeRepositorios: List[Repositorio], name: String): Future[List[String]] =
+        Future{
+          Thread.sleep(200)
+          listaDeRepositorios
+            .filter(x => x.dueno.equalsIgnoreCase(name)).map(x => x.lenguaje)
+        }
+    }
+
+    val a = Consulta.consultaRepositoriosUser(usersRepositories, "Pedro")
+    println(a)
+    val b = Consulta.lenguajeRepositorios(repositories)
+    println(b)
+    val c = Consulta.userRepositories(repositories, "Jean")
+    println(c)
+
+    val res = Await.result(a, 10 seconds)
+    val res2 = Await.result(b, 10 seconds)
+    val res3 = Await.result(c, 10 seconds)
+
+    println(res)
+    println(res2)
+    println(res3)
+  }
+
 
 
 }
