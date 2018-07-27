@@ -306,13 +306,16 @@ class OptionSuite extends FunSuite {
 
   test("Tony Morris foreach"){
 
-    def foo(x:Int):Some[Int] = Some(x)
+    var q = false
 
+    def foo(x:Int): Boolean ={
+      q = true
+      q
+    }
 
-
-    val option: Option[Int] = Some(1)
+    val option: Option[Int] = Some(6)
     val res = option.foreach(foo(_))
-    assert(res == Some(1))
+    assert(q == true)
   }
 
   test("Tony Morris isDefined"){
@@ -368,10 +371,32 @@ class OptionSuite extends FunSuite {
 
   test("Tony Morris getOrElse"){
 
-    def foo(x:Int):Some[Int] = Some(x)
-    val option: Option[Int] = None
-    val res = option.getOrElse(foo(_))
-    assert(res == Some(1))
+    def foo(x:Int) = Some(x)
+
+    val option1: Option[Int] = None
+    val option2: Option[Int] = Some(2)
+
+    val res = option1.getOrElse(foo(3))
+    val res2 = option2.getOrElse(foo(_))
+
+    assert(res2 == 2)
+    assert(res == Some(3))
+
+  }
+
+  test("Tony Morris toList"){
+    /*option match {
+      case None => Nil
+      case Some(x) => x :: Nil
+    }*/
+
+    val option = Some(1)
+    val res1 = option.toList
+    val res2 = None.toList
+
+    assert(res1 == List(1))
+    assert(res2 == Nil)
+
   }
 
 }

@@ -69,11 +69,11 @@ class QueueSuite extends FunSuite {
     }
   }
 
-  test("Borrar elementos con dequeue"){
-    val cola = Queue[Int](1,2,3,4)
-    assertResult(1,2,3){
-      cola.dequeue
-    }
+  test("Scar elementos de la cola con dequeue"){
+    val cola = Queue(1,2,3,4)
+    val result: (Int, Queue[Int]) = cola.dequeue
+
+    assert(result == (1, Queue(2,3,4)))
   }
 
 

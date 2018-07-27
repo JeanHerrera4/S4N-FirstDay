@@ -67,11 +67,12 @@ class StackSuite extends FunSuite {
     }
   }
 
-  test("Borrar elementos con pop"){
+  test("Sacar elementos con pop"){
     val pila = Stack[Int](1,2,3,4)
-    assertResult(2,3,4){
-      pila.pop
-    }
+    val res = pila.pop
+
+    assert(res == Stack(2, 3, 4))
+
   }
 
 
