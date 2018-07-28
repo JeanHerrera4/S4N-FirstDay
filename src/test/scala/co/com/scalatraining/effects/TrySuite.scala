@@ -98,7 +98,7 @@ class TrySuite extends FunSuite with Matchers {
       case e: Exception => throw new Exception("Error propio")
     }
 
-    assert(rec.isSuccess)
+    assert(rec.isFailure)
 
     rec match{
       case Failure(e) => assert(false)
